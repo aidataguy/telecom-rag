@@ -5,6 +5,15 @@ from app.core.rag import rag_query, rag_streamer
 
 app = FastAPI(title="TelecomOps RAG API", version="1.0")
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class QueryRequest(BaseModel):
     query: str
     top_k: int = 5
