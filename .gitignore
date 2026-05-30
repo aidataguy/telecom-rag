@@ -1,0 +1,21 @@
+# Environment — never commit this
+.env
+
+# Data — too large for git
+data/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.python-version
+
+# Mac
+.DS_Store
+
+# Models
+models/
+
+# uv
+.uv/
