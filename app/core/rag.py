@@ -89,18 +89,17 @@ def rag_query(query: str, top_k: int = 5) -> dict:
         "query": query
     }
 
-def rag_streamer(query:str, top_k: int = 5)-> Generator[str, None, None]:
-    """Stream my RAGGGGG response, ofcourse by token 😂 """
+def rag_streamer(query: str, top_k: int = 5) -> Generator[str, None, None]:
+    """Stream RAG response token by token 😂"""
     docs = retrieve(query, top_k)
     prompt = build_prompt(query, docs)
-
     for chunk in _client.generate(
-        model = CHAT_MODEL,
-        prompt = prompt,
-        stream = True
+        model=CHAT_MODEL,
+        prompt=prompt,
+        stream=True
     ):
-        token=chunk.get("response", "")
+        # chunk is a GenerateResponse object, not a dict
+        token = chunk.response if hasattr(chunk, 'response') else ""
         if token:
             yield token
-
 
